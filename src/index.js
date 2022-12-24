@@ -3,6 +3,8 @@ const express = require("express");
 const cors=require("cors")
 const dbConnect = require("../src/config/db");
 const UserRoute=require("./Routes/User.route")
+const ticketRoute=require("./Routes/ticket.route")
+
 
 
 require('dotenv').config();
@@ -14,6 +16,8 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/user",UserRoute)
+app.use("/ticket",ticketRoute)
+
 
 
 
