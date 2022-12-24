@@ -15,6 +15,38 @@ app.get("/:id", async (req, res) => {
 });
 
 
+app.get("/filtercategory", async (req, res) => {
+  const { q } = req.query;
+  console.log(q);
+  try {
+    const filterrole = await ticketSchema.find({ role: q });
+    res.status(200).send(filterrole);
+  } catch (er) {
+    return res.status(404).send({ msg: er.message });
+  }
+});
+
+app.get("/sort/:type", async (req, res) => {
+ const {type} =req.params;
+
+ try{
+  if(type==="dec")
+  {
+    let updated=await ticketSchema.find().sort({createdAt:-1});
+    res.send(updated)
+  }
+  else if(type==="inc"){
+    let updated=await ticketSchema.find().sort({createdAt:1});
+    res.send(updated)
+  }
+ }catch(er){
+  res.status(404).send(er.message)
+ }
+ 
+  
+});
+
+
 
 
 app.post("/", async (req, res) => {
